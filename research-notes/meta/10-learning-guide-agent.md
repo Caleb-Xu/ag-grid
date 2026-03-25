@@ -1,10 +1,10 @@
-# AG Grid 学习引导 Agent 设计
+# AG Grid Teaching Aide 设计
 
 ## 目标
 定义一个放在项目内、可长期复用的学习引导 agent，用来支撑 AG Grid 的阶段化学习。
 
 ## Agent 定位
-这是一个**后台助教型 learning agent**，不是直接面向用户讲完整课程的导师 agent。
+这是一个**后台助教型 teaching aide agent**，不是直接面向用户讲完整课程的导师 agent。
 
 它的核心职责是：
 - 根据主 assistant 已规划好的学习路线，为单个专题的单个教学块做备课
@@ -22,7 +22,7 @@
 - 严格控制“一讲一问”的节奏
 - 在专题结束后统一整理正式学习笔记
 
-### 学习引导 agent 负责
+### teaching aide agent 负责
 - 针对当前专题的当前教学块做聚焦探索
 - 输出一份小而精的 teaching brief
 - 给出当前块最重要的 mental model
@@ -32,7 +32,7 @@
 ## 学习协作模式
 采用“前���授课 + 后台备课”的两层协作：
 1. **主 assistant 先规划**：确定阶段路线、专题顺序、当前块目标与边界。
-2. **learning agent 再备课**：围绕当前块产出 teaching brief。
+2. **teaching aide agent 再备课**：围绕当前块产出 teaching brief。
 3. **主 assistant 再讲解**：按“一讲一问”的方式和用户互动。
 4. **专题结束后统一记笔记**：把确认后的理解写入正式 notes。
 
@@ -138,3 +138,9 @@
 
 ## 当前结论
 这个 agent 应该作为项目内的长期后台学习助手使用，服务于“学习路线驱动 + 单教学块备课 + 前台一讲一问 + 教案/笔记分离”的学习模式。
+
+## 与项目内开课 skill 的关系
+项目内可再配套一个开课 skill，作为学习会话的主入口：
+- skill 负责启动学习流程
+- 主 assistant 负责前台教学
+- `ag-grid-teaching-aide` 负责后台 teaching brief

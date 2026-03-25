@@ -35,6 +35,9 @@
 - `notes/09-ai-agent-workflow.md`：AI / Agent 工作流设计与可推断机制
 - 后续正式学习笔记统一放在 `notes/` 下
 
+### `../.claude/skills/`
+- `.claude/skills/ag-grid-guided-learning/SKILL.md`：开课入口 skill，负责启动“一讲一问”的学习模式
+
 ## 管理约定
 - `plans/` 只放教案、学习路线、专题教学拆解，不放最终学习结论
 - `notes/` 只放阶段性确认后的正式学习笔记
@@ -46,6 +49,6 @@
 - 已确认学习记录统一归档到 `research-notes/`
 - 已确认采用更规整的三层结构：`meta/`、`plans/`、`notes/`
 - 已确认学习路线采用“先建立架构地图，再优先关注对自研 enterprise 最有价值部分”的混合策略
-- 已确认学习模式：由当前主 agent 负责规划路线与阶段大纲，再由后台学习 agent 提供 teaching brief，由主 assistant 以前台“一讲一问”的方式带学
+- 已确认学习模式：由当前主 agent 负责规划路线与阶段大纲，再由后台 teaching aide agent 提供 teaching brief，由主 assistant 以前台“一讲一问”的方式带学
 - 已确认教案和正式学习笔记分开管理
-- 下一步：按新结构调整 learning-guide 的协作说明，并开始第一讲前的专题教案准备
+- 下一步：按新结构调整 teaching aide 的协作说明，并开始第一讲前的专题教案准备

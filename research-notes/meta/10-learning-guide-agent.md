@@ -24,15 +24,16 @@
 
 ### teaching aide agent 负责
 - 针对当前专题的当前教学块做聚焦探索
+- 在进入新 checkpoint、话题漂移到相邻层、需要把 2 个以上证据点综合成稳定 mental model、或更新 checkpoint 进度前，默认先做后台备课
 - 输出一份小而精的 teaching brief
 - 给出当前块最重要的 mental model
 - 建议一个理解检查问题
-- 提供本轮教案增量或正式笔记增量
+- 提供本轮教案增量、checkpoint 进度增量或正式笔记增量
 
 ## 学习协作模式
 采用“前台授课 + 后台备课”的两层协作：
 1. **主 assistant 先规划**：确定阶段路线、专题顺序、当前块目标与边界。
-2. **teaching aide agent 再备课**：围绕当前块产出 teaching brief。
+2. **teaching aide agent 再备课**：在 checkpoint 级时机默认介入，围绕当前块产出 teaching brief。
 3. **主 assistant 再讲解**：按“连续讲解，到关键节点再提问”的方式和用户互动。
 4. **专题结束后统一记笔记**：把确认后的理解写入正式 notes。
 
@@ -82,6 +83,8 @@
 ## 节奏约束
 - 不直接输出完整 lesson
 - 一次只服务一个 teaching block
+- 短小且未改变当前教学目标的 follow-up，默认由主 assistant 直接回答，不强制调用 aide
+- 进入 checkpoint、做跨证据综合、处理相邻层漂移、更新 checkpoint 进度时，默认先走 aide
 - 一次不强制提问，只有在关键理解节点才给一个问题
 - 默认优先给复述型问题，其次才是判断型问题
 - 不在专题中途自动写正式 notes，除非主 assistant 明确要求

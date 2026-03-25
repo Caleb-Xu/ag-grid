@@ -8,7 +8,7 @@ description: Use when starting or continuing topic-by-topic AG Grid learning in 
 ## Overview
 Use this skill to start or continue AG Grid learning sessions in this repository.
 
-Core principle: the main assistant teaches the user in small visible steps, while `ag-grid-teaching-aide` is used only as a backstage aide for one focused teaching turn at a time. Questions are asked only at key checkpoints, not after every block.
+Core principle: the main assistant teaches the user in small visible steps, while `ag-grid-teaching-aide` is used as a backstage aide for one focused teaching turn at a time. At checkpoint-level moments, the aide is the default preparation path rather than an optional extra. Questions are asked only at key checkpoints, not after every block.
 
 ## When to Use
 Use when:
@@ -33,8 +33,8 @@ After:
 - read the in-repo learning system first
 - identify the current topic and current teaching objective
 - keep the main assistant user-facing
+- treat checkpoint-level moments as the default time to call `ag-grid-teaching-aide`
 - teach one focused turn, ask a question only when a key checkpoint is reached, then wait
-- use `ag-grid-teaching-aide` only to prepare a backstage teaching brief if needed
 - update final notes only when the topic or stage is actually ready
 
 ## Quick Reference
@@ -52,9 +52,11 @@ After:
 ### Default teaching rhythm
 1. confirm current topic
 2. reduce it to one focused teaching objective
-3. teach one visible turn, which may contain 1-3 tightly related mini-blocks
-4. ask one question only if a key checkpoint has been reached
-5. otherwise continue teaching in the next turn without forcing a question
+3. call `ag-grid-teaching-aide` by default when entering a new checkpoint, when the discussion drifts into an adjacent layer, when you need to synthesize 2+ evidence points into one stable mental model, or before updating checkpoint progress
+4. teach one visible turn, which may contain 1-3 tightly related mini-blocks
+5. ask one question only if a key checkpoint has been reached
+6. otherwise continue teaching in the next turn without forcing a question
+7. skip the aide for short in-scope follow-up questions that do not change the current teaching objective
 
 ## Implementation
 ### Required startup discipline
@@ -68,13 +70,19 @@ When this skill is triggered, do the following before teaching:
    - If the user names a topic, use it.
    - Otherwise choose the next natural topic from the roadmap.
 4. Reduce the topic to **one focused teaching objective**.
-5. Decide whether you need backstage help from `ag-grid-teaching-aide`.
-   - Use it only to prepare a brief for the current teaching turn.
-   - Do not let it become the visible teacher.
-6. Deliver exactly one user-facing teaching turn.
-7. Ask a question only if the current turn reaches a key checkpoint.
-8. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
-9. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` before ending the turn.
+5. Decide whether the current moment is a checkpoint-level moment.
+   - Treat these as checkpoint-level moments by default:
+     - entering a new checkpoint
+     - drifting from the current objective into an adjacent layer
+     - synthesizing 2+ evidence points into one stable mental model
+     - updating `research-notes/meta/20-learning-progress.md`
+6. If it is a checkpoint-level moment, call `ag-grid-teaching-aide` before teaching or updating progress.
+7. If it is only a short in-scope follow-up that does not change the current teaching objective, skip the aide and answer directly.
+8. Do not let the aide become the visible teacher.
+9. Deliver exactly one user-facing teaching turn.
+10. Ask a question only if the current turn reaches a key checkpoint.
+11. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
+12. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` before ending the turn.
 
 ### User-facing output contract
 Your first visible teaching turn should contain only:
@@ -102,6 +110,9 @@ If unsure, use a reconstruction-style question.
 ### Mistake: Teaching the whole lesson at once
 Fix: keep the turn focused, but do not force a question after every mini-block.
 
+### Mistake: Treating `ag-grid-teaching-aide` as purely optional at checkpoint boundaries
+Fix: when entering a new checkpoint, synthesizing a stable mental model from multiple evidence points, drifting into an adjacent layer, or updating progress, call the aide by default first.
+
 ### Mistake: Letting `ag-grid-teaching-aide` talk to the user as the teacher
 Fix: keep it backstage and ask it only for a teaching brief.
 
@@ -124,5 +135,8 @@ If you catch yourself doing any of these, stop and restart the turn correctly:
 - “I already know the roadmap, no need to read it”
 - “I’ll write the final note while we’re still exploring”
 - “I should force a question here even though this was only setup”
+- “This is a new checkpoint, but I can probably skip the aide this time”
+- “I already have enough evidence in my head, so I don’t need the aide for the mental model”
+- “I can update progress directly without asking the aide for a progress delta”
 
-All of these mean: keep the turn focused, ask only at key checkpoints, and avoid performative interruption.
+All of these mean: checkpoint-level moments should default to the aide first, short in-scope follow-ups can stay direct, and the visible teaching turn must remain with the main assistant.

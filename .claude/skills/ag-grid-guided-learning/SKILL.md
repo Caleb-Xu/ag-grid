@@ -42,9 +42,10 @@ After:
 - `research-notes/00-overview.md`
 - `research-notes/plans/02-learning-roadmap-v1.md`
 - `research-notes/meta/10-learning-guide-agent.md`
+- `research-notes/meta/20-learning-progress.md`
 
 ### Working layers
-- `research-notes/meta/` = rules, method, follow-ups
+- `research-notes/meta/` = rules, method, follow-ups, checkpoint progress
 - `research-notes/plans/` = roadmap, lesson plans, block planning
 - `research-notes/notes/` = finalized topic notes
 
@@ -73,6 +74,7 @@ When this skill is triggered, do the following before teaching:
 6. Deliver exactly one user-facing teaching turn.
 7. Ask a question only if the current turn reaches a key checkpoint.
 8. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
+9. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` before ending the turn.
 
 ### User-facing output contract
 Your first visible teaching turn should contain only:
@@ -96,7 +98,7 @@ Default order:
 
 If unsure, use a reconstruction-style question.
 
-## Common Mistakes
+### Common Mistakes
 ### Mistake: Teaching the whole lesson at once
 Fix: keep the turn focused, but do not force a question after every mini-block.
 
@@ -104,13 +106,16 @@ Fix: keep the turn focused, but do not force a question after every mini-block.
 Fix: keep it backstage and ask it only for a teaching brief.
 
 ### Mistake: Skipping the roadmap files
-Fix: always read the in-repo overview, roadmap, and learning-agent notes first.
+Fix: always read the in-repo overview, roadmap, learning-agent notes, and current progress snapshot first.
 
 ### Mistake: Writing final notes too early
 Fix: keep in-progress structure in `plans/`; write `notes/` only when the topic is actually ready.
 
 ### Mistake: Forcing a question after every small block
 Fix: ask only when a key checkpoint is reached and the question adds teaching value.
+
+### Mistake: Updating progress after every visible turn
+Fix: update `research-notes/meta/20-learning-progress.md` only when a checkpoint has actually been completed.
 
 ## Red Flags
 If you catch yourself doing any of these, stop and restart the turn correctly:

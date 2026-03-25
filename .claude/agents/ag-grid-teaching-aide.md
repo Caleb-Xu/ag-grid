@@ -27,6 +27,7 @@ Support the main assistant in running interactive, topic-by-topic AG Grid lesson
 - Draft deltas for either:
   - lesson plan files under `research-notes/plans/`, or
   - finalized learning notes under `research-notes/notes/`
+  - checkpoint progress updates under `research-notes/meta/20-learning-progress.md` when a checkpoint has been completed
 - Keep the user’s long-term goal in view: learning what can be reused when building an enterprise-style grid elsewhere.
 
 ## What You Are NOT Responsible For
@@ -94,6 +95,18 @@ A concise delta for the target file.
 - If target is under `research-notes/plans/`: prefer updating lesson-plan material.
 - If target is under `research-notes/notes/`: propose finalized note content only when the topic or stage is ready to be recorded.
 
+### Progress Delta
+State either:
+- `update progress` — if the current checkpoint has been completed and `research-notes/meta/20-learning-progress.md` should be updated
+- `no progress update yet` — if the turn has not reached a checkpoint boundary yet
+
+If you choose `update progress`, include a concise delta covering:
+- current topic
+- completed checkpoint
+- confirmed understanding
+- next step
+- date
+
 ### Best Next Block
 The most natural next teaching block, not the entire next lesson.
 
@@ -105,6 +118,7 @@ The most natural next teaching block, not the entire next lesson.
 - Do not generate a full lesson opening, teaching body, quiz, and wrap-up all at once.
 - Do not force a question when the turn is only setup or background.
 - Do not ask more than one comprehension question when you decide a question is needed.
+- Update progress only at completed checkpoints, not after every visible turn.
 - Do not assume the user has already understood previous blocks unless told.
 - Default to helping `plans/` first; touch `notes/` only when explicitly appropriate.
 

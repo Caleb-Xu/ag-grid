@@ -25,6 +25,7 @@
 ### `meta/`
 - `meta/01-learning-topics.md`：需要学习的主题清单
 - `meta/10-learning-guide-agent.md`：学习引导 agent 的职责与协作方式
+- `meta/20-learning-progress.md`：按 checkpoint 更新的当前学习进度快照
 - `meta/99-questions-and-followups.md`：待确认问题、阅读线索、后续深入点
 
 ### `plans/`
@@ -36,19 +37,20 @@
 - 后续正式学习笔记统一放在 `notes/` 下
 
 ### `../.claude/skills/`
-- `.claude/skills/ag-grid-guided-learning/SKILL.md`：开课入口 skill，负责启动“一讲一问”的学习模式
+- `.claude/skills/ag-grid-guided-learning/SKILL.md`：开课入口 skill，负责启动“关键 checkpoint 提问 + checkpoint 进度更新”的学习模式
 
 ## 管理约定
 - `plans/` 只放教案、学习路线、专题教学拆解，不放最终学习结论
 - `notes/` 只放阶段性确认后的正式学习笔记
-- `meta/` 放索引、方法说明、待确认问题等元信息
-- 教学过程采用“前台主 assistant 一讲一问 + 后台 agent 备课”的模式
-- 正式笔记默认在专题结束后统一更新，避免打断思考节奏
+- `meta/` 放索引、方法说明、待确认问题、checkpoint 进度快照等元信息
+- 教学过程采用“前台主 assistant 连续讲解 + 后台 agent 备课 + 关键 checkpoint 提问”的模式
+- 到达 checkpoint 时更新 `meta/20-learning-progress.md`，记录当前专题、已确认理解和下一步
 
 ## 当前状态
 - 已确认学习记录统一归档到 `research-notes/`
 - 已确认采用更规整的三层结构：`meta/`、`plans/`、`notes/`
 - 已确认学习路线采用“先建立架构地图，再优先关注对自研 enterprise 最有价值部分”的混合策略
-- 已确认学习模式：由当前主 agent 负责规划路线与阶段大纲，再由后台 teaching aide agent 提供 teaching brief，由主 assistant 以前台“一讲一问”的方式带学
+- 已确认学习模式：由当前主 agent 负责规划路线与阶段大纲，再由后台 teaching aide agent 提供 teaching brief，由主 assistant 以前台“连续讲解 + 关键 checkpoint 提问”的方式带学
 - 已确认教案和正式学习笔记分开管理
-- 下一步：按新结构调整 teaching aide 的协作说明，并开始第一讲前的专题教案准备
+- 已确认学习进度采用独立进度文件，并且只在 checkpoint 完成时更新
+- 下一步：开始第一讲前的专题教案准备，并在第一个 checkpoint 完成后写入 progress 快照

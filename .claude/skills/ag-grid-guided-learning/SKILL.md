@@ -1,6 +1,6 @@
 ---
 name: ag-grid-guided-learning
-description: Use when starting or continuing topic-by-topic AG Grid learning in this repository, especially when the session should follow the in-repo roadmap, keep the main assistant user-facing, use one-teaching-block-at-a-time pacing, and optionally use ag-grid-teaching-aide only as a backstage teaching aide.
+description: Use when starting or continuing topic-by-topic AG Grid learning in this repository, especially when the session should follow the in-repo roadmap, keep the main assistant user-facing, avoid block-by-block forced questioning, and use key-checkpoint questions only when they add teaching value.
 ---
 
 # AG Grid Guided Learning
@@ -8,14 +8,14 @@ description: Use when starting or continuing topic-by-topic AG Grid learning in 
 ## Overview
 Use this skill to start or continue AG Grid learning sessions in this repository.
 
-Core principle: the main assistant teaches the user in small visible steps, while `ag-grid-teaching-aide` is used only as a backstage aide for one teaching block at a time.
+Core principle: the main assistant teaches the user in small visible steps, while `ag-grid-teaching-aide` is used only as a backstage aide for one focused teaching turn at a time. Questions are asked only at key checkpoints, not after every block.
 
 ## When to Use
 Use when:
 - the user says “开始学习 AG Grid” or “继续学习 AG Grid”
 - the session should follow the in-repo learning roadmap
 - the teaching should be interactive rather than dump-style
-- the user wants one-teaching-block-at-a-time pacing
+- the user wants interactive pacing without being interrupted by a forced question after every small block
 
 Do not use when:
 - the user wants broad one-shot repo exploration with no teaching structure
@@ -31,9 +31,9 @@ Before:
 
 After:
 - read the in-repo learning system first
-- identify the current topic and current teaching block
+- identify the current topic and current teaching objective
 - keep the main assistant user-facing
-- teach one block, ask one question, then wait
+- teach one focused turn, ask a question only when a key checkpoint is reached, then wait
 - use `ag-grid-teaching-aide` only to prepare a backstage teaching brief if needed
 - update final notes only when the topic or stage is actually ready
 
@@ -50,10 +50,10 @@ After:
 
 ### Default teaching rhythm
 1. confirm current topic
-2. reduce to one current teaching block
-3. teach one chunk
-4. ask one question
-5. wait for the user
+2. reduce it to one focused teaching objective
+3. teach one visible turn, which may contain 1-3 tightly related mini-blocks
+4. ask one question only if a key checkpoint has been reached
+5. otherwise continue teaching in the next turn without forcing a question
 
 ## Implementation
 ### Required startup discipline
@@ -66,21 +66,21 @@ When this skill is triggered, do the following before teaching:
 3. Determine the current topic.
    - If the user names a topic, use it.
    - Otherwise choose the next natural topic from the roadmap.
-4. Reduce the topic to **one current teaching block**.
+4. Reduce the topic to **one focused teaching objective**.
 5. Decide whether you need backstage help from `ag-grid-teaching-aide`.
-   - Use it only to prepare a brief for the current block.
+   - Use it only to prepare a brief for the current teaching turn.
    - Do not let it become the visible teacher.
-6. Deliver exactly one user-facing teaching block.
-7. Ask exactly one question.
-8. Stop and wait.
+6. Deliver exactly one user-facing teaching turn.
+7. Ask a question only if the current turn reaches a key checkpoint.
+8. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
 
 ### User-facing output contract
 Your first visible teaching turn should contain only:
 - current topic
-- current block
-- one concise explanation
+- current teaching objective
+- one concise explanation, which may cover 1-3 tightly related mini-blocks
 - 1-3 source references if needed
-- one question
+- one question only when the turn reaches a key checkpoint
 
 Do not include:
 - full-lesson summary
@@ -98,7 +98,7 @@ If unsure, use a reconstruction-style question.
 
 ## Common Mistakes
 ### Mistake: Teaching the whole lesson at once
-Fix: shrink to one block and stop after one question.
+Fix: keep the turn focused, but do not force a question after every mini-block.
 
 ### Mistake: Letting `ag-grid-teaching-aide` talk to the user as the teacher
 Fix: keep it backstage and ask it only for a teaching brief.
@@ -109,12 +109,15 @@ Fix: always read the in-repo overview, roadmap, and learning-agent notes first.
 ### Mistake: Writing final notes too early
 Fix: keep in-progress structure in `plans/`; write `notes/` only when the topic is actually ready.
 
+### Mistake: Forcing a question after every small block
+Fix: ask only when a key checkpoint is reached and the question adds teaching value.
+
 ## Red Flags
 If you catch yourself doing any of these, stop and restart the turn correctly:
 - “I’ll just give the whole first lesson now”
 - “The subagent can explain this directly”
 - “I already know the roadmap, no need to read it”
 - “I’ll write the final note while we’re still exploring”
-- “I’ll ask several questions so the user can choose one”
+- “I should force a question here even though this was only setup”
 
-All of these mean: reduce to one block, one question, one visible turn.
+All of these mean: keep the turn focused, ask only at key checkpoints, and avoid performative interruption.

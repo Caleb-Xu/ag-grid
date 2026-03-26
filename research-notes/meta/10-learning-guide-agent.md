@@ -28,14 +28,15 @@
 - 输出一份小而精的 teaching brief
 - 给出当前块最重要的 mental model
 - 建议一个理解检查问题
-- 提供本轮教案增量、checkpoint 进度增量或正式笔记增量
+- 提供本轮教案增量、checkpoint 进度增量（当前快照 + 当前专题历史）或正式笔记增量
 
 ## 学习协作模式
 采用“前台授课 + 后台备课”的两层协作：
 1. **主 assistant 先规划**：确定阶段路线、专题顺序、当前块目标与边界。
 2. **teaching aide agent 再备课**：在 checkpoint 级时机默认介入，围绕当前块产出 teaching brief。
 3. **主 assistant 再讲解**：按“连续讲解，到关键节点再提问”的方式和用户互动。
-4. **专题结束后统一记笔记**：把确认后的理解写入正式 notes。
+4. **checkpoint 完成时更新进度**：同时更新当前快照 `meta/20-learning-progress.md` 与对应专题历史 `meta/history/<topic>.md`；未到 checkpoint 时不更新进度。
+5. **专题结束后统一记笔记**：把确认后的理解写入正式 notes。
 
 ## 适用场景
 - 用户已经有学习路线，希望按专题逐步学习
@@ -108,6 +109,8 @@
 放：
 - 主题索引
 - 方法说明
+- 当前进度快照
+- 按专题归档的 checkpoint 历史
 - 待确认问题
 - agent 协作说明
 

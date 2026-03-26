@@ -52,7 +52,7 @@ After:
 ### Default teaching rhythm
 1. confirm current topic
 2. reduce it to one focused teaching objective
-3. call `ag-grid-teaching-aide` by default when entering a new checkpoint, when the discussion drifts into an adjacent layer, when you need to synthesize 2+ evidence points into one stable mental model, or before updating checkpoint progress
+3. call `ag-grid-teaching-aide` by default when entering a new checkpoint, when the discussion drifts into an adjacent layer, when you need to synthesize 2+ evidence points into one stable mental model, or before updating checkpoint progress; for ordinary checkpoint preparation, keep the aide in the current workspace as a read-only helper rather than defaulting to `isolation: "worktree"`
 4. teach one visible turn, which may contain 1-3 tightly related mini-blocks
 5. ask one question only if a key checkpoint has been reached
 6. otherwise continue teaching in the next turn without forcing a question
@@ -77,6 +77,9 @@ When this skill is triggered, do the following before teaching:
      - synthesizing 2+ evidence points into one stable mental model
      - updating `research-notes/meta/20-learning-progress.md`
 6. If it is a checkpoint-level moment, call `ag-grid-teaching-aide` before teaching or updating progress.
+   - Default to in-place read-only preparation in the current workspace.
+   - Do not default to `isolation: "worktree"` for ordinary briefing, evidence gathering, or mental-model preparation.
+   - If the aide fails during startup, file reading, or evidence search, explicitly tell the user the aide call failed, then continue the same teaching turn with local `Read` / `Grep`.
 7. If it is only a short in-scope follow-up that does not change the current teaching objective, skip the aide and answer directly.
 8. Do not let the aide become the visible teacher.
 9. Deliver exactly one user-facing teaching turn.
@@ -111,7 +114,10 @@ If unsure, use a reconstruction-style question.
 Fix: keep the turn focused, but do not force a question after every mini-block.
 
 ### Mistake: Treating `ag-grid-teaching-aide` as purely optional at checkpoint boundaries
-Fix: when entering a new checkpoint, synthesizing a stable mental model from multiple evidence points, drifting into an adjacent layer, or updating progress, call the aide by default first.
+Fix: when entering a new checkpoint, synthesizing a stable mental model from multiple evidence points, drifting into an adjacent layer, or updating progress, call the aide by default first; keep ordinary aide preparation read-only in the current workspace instead of defaulting to `isolation: "worktree"`.
+
+### Mistake: Letting `ag-grid-teaching-aide` failure end the teaching turn
+Fix: if the aide fails during startup, file reading, or evidence search, explicitly tell the user it failed and continue the same teaching turn with local `Read` / `Grep`.
 
 ### Mistake: Letting `ag-grid-teaching-aide` talk to the user as the teacher
 Fix: keep it backstage and ask it only for a teaching brief.
@@ -138,5 +144,8 @@ If you catch yourself doing any of these, stop and restart the turn correctly:
 - “This is a new checkpoint, but I can probably skip the aide this time”
 - “I already have enough evidence in my head, so I don’t need the aide for the mental model”
 - “I can update progress directly without asking the aide for a progress delta”
+- “This is read-only prep, so I should spin up a worktree by default”
+- “The aide failed, so I have to stop the teaching turn”
+- “Example tool calls can include empty-string fields like `pages: ""`”
 
-All of these mean: checkpoint-level moments should default to the aide first, short in-scope follow-ups can stay direct, and the visible teaching turn must remain with the main assistant.
+All of these mean: checkpoint-level moments should default to the aide first, short in-scope follow-ups can stay direct, ordinary aide prep should stay in-place and read-only, aide failures must fall back to local exploration, and the visible teaching turn must remain with the main assistant.

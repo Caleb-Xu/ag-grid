@@ -45,7 +45,7 @@ After:
 - `research-notes/meta/20-learning-progress.md`
 
 ### Working layers
-- `research-notes/meta/` = rules, method, follow-ups, checkpoint progress
+- `research-notes/meta/` = rules, method, follow-ups, current snapshot, topic history
 - `research-notes/plans/` = roadmap, lesson plans, block planning
 - `research-notes/notes/` = finalized topic notes
 
@@ -85,7 +85,7 @@ When this skill is triggered, do the following before teaching:
 9. Deliver exactly one user-facing teaching turn.
 10. Ask a question only if the current turn reaches a key checkpoint.
 11. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
-12. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` before ending the turn.
+12. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` and the corresponding `research-notes/meta/history/<topic>.md` before ending the turn.
 
 ### User-facing output contract
 Your first visible teaching turn should contain only:
@@ -132,7 +132,7 @@ Fix: keep in-progress structure in `plans/`; write `notes/` only when the topic 
 Fix: ask only when a key checkpoint is reached and the question adds teaching value.
 
 ### Mistake: Updating progress after every visible turn
-Fix: update `research-notes/meta/20-learning-progress.md` only when a checkpoint has actually been completed.
+Fix: update `research-notes/meta/20-learning-progress.md` and the corresponding `research-notes/meta/history/<topic>.md` only when a checkpoint has actually been completed.
 
 ## Red Flags
 If you catch yourself doing any of these, stop and restart the turn correctly:

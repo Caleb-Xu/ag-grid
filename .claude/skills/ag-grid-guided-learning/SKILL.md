@@ -86,6 +86,11 @@ When this skill is triggered, do the following before teaching:
 10. Ask a question only if the current turn reaches a key checkpoint.
 11. Stop and wait when a checkpoint question has been asked, or when the turn has reached a natural pause.
 12. If a checkpoint was completed, update `research-notes/meta/20-learning-progress.md` and the corresponding `research-notes/meta/history/<topic>.md` before ending the turn.
+   - Treat these two files as the only default checkpoint record commit scope.
+   - If either file changed, stage only those two files and create a commit with message `docs: record checkpoint progress for <topic>`.
+   - Do not use broad staging such as `git add .` or `git add -A`.
+   - If both files are unchanged, skip the commit without error.
+   - Keep git commit orchestration in the main assistant flow, not in `ag-grid-teaching-aide`.
 
 ### User-facing output contract
 Your first visible teaching turn should contain only:
@@ -132,7 +137,13 @@ Fix: keep in-progress structure in `plans/`; write `notes/` only when the topic 
 Fix: ask only when a key checkpoint is reached and the question adds teaching value.
 
 ### Mistake: Updating progress after every visible turn
-Fix: update `research-notes/meta/20-learning-progress.md` and the corresponding `research-notes/meta/history/<topic>.md` only when a checkpoint has actually been completed.
+Fix: update `research-notes/meta/20-learning-progress.md` and the corresponding `research-notes/meta/history/<topic>.md` only when a checkpoint has actually been completed. When a checkpoint record is complete, only those two files belong in the default checkpoint commit scope, and no-op updates should skip commit.
+
+### Mistake: Letting checkpoint commits absorb unrelated changes
+Fix: stage only `research-notes/meta/20-learning-progress.md` and the matching `research-notes/meta/history/<topic>.md` for the checkpoint record commit. Do not pull in `research-notes/plans/`, `research-notes/notes/`, or unrelated working tree changes.
+
+### Mistake: Delegating checkpoint git actions to `ag-grid-teaching-aide`
+Fix: `ag-grid-teaching-aide` can suggest `Snapshot Update` and `History Entry`, but the main assistant owns the checkpoint commit orchestration.
 
 ## Red Flags
 If you catch yourself doing any of these, stop and restart the turn correctly:
